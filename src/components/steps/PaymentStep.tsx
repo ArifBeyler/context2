@@ -141,9 +141,11 @@ const CheckoutForm: React.FC = () => {
 };
 
 const PaymentStep: React.FC = () => {
-  const { updateSelection, selections, setIsLoading, isLoading } = useAppContext();
+  const { updateSelection, selections, setIsLoading, isLoading, currentStep, nextStep } = useAppContext();
   const [initialLoading, setInitialLoading] = useState(true);
   const [errorFetchingSecret, setErrorFetchingSecret] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
 
   useEffect(() => {
     const fetchClientSecret = async () => {
@@ -235,39 +237,87 @@ const PaymentStep: React.FC = () => {
     );
   }
 
-  return (
-    <div className="space-y-6">
+  if (currentStep !== 10) return null;
+
+  const handleMockPayment = async () => {
+    setIsProcessing(true);
+    
+    // Simulate payment processing
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    setPaymentCompleted(true);
+    setIsProcessing(false);
+    
+    // Auto-proceed to next step after payment
+    setTimeout(() => {
+      nextStep();
+    }, 1000);
+  };
+
+  if (paymentCompleted) {
+    return (
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-slate-800 mb-2">
-          Context File Generation
-        </h3>
-        <p className="text-slate-700">
-          You need to make a payment of ${PAYMENT_AMOUNT / 100} before creating your context file.
-        </p>
-        <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-800">
-            ✅ Secure payment with Stripe<br/>
-            ✅ Instant context file generation<br/>
-            ✅ All your selections are saved
-          </p>
+        <div className="mb-6">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Payment Successful!</h3>
+          <p className="text-gray-600">Your context file is being generated...</p>
         </div>
       </div>
-      
-      {selections.paymentClientSecret && (
-        <StripeErrorBoundary>
-          <Elements stripe={stripePromise} options={{ clientSecret: selections.paymentClientSecret, appearance: { theme: 'stripe' } }}>
-            <CheckoutForm />
-          </Elements>
-        </StripeErrorBoundary>
-      )}
-      
-      {!selections.paymentClientSecret && !initialLoading && !errorFetchingSecret && (
-         <div className="text-center py-8">
-            <LoadingSpinner size="lg" />
-            <p className="mt-4 text-slate-600">Preparing payment system...</p>
-            <p className="text-xs text-slate-400 mt-2">(Waiting for client secret)</p>
-         </div>
-       )}
+    );
+  }
+
+  return (
+    <div className="text-center">
+      <div className="mb-8">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Complete Your Purchase</h3>
+        <p className="text-gray-600 mb-6">
+          Pay $1 to generate your custom AI context file based on your selections.
+        </p>
+        
+        <div className="bg-gray-50 rounded-lg p-6 mb-6">
+          <h4 className="font-semibold text-gray-900 mb-4">Your Selections Summary:</h4>
+          <div className="text-left space-y-2 text-sm text-gray-600">
+            <p><span className="font-medium">Platform:</span> {selections.platform}</p>
+            <p><span className="font-medium">Development Tool:</span> {selections.devTool}</p>
+            <p><span className="font-medium">Design Framework:</span> {selections.design}</p>
+            <p><span className="font-medium">Language:</span> {selections.language}</p>
+            {selections.aiModel && (
+              <p><span className="font-medium">AI Model:</span> {selections.aiModel}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="border rounded-lg p-6 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-lg font-medium">AI Context File Generation</span>
+            <span className="text-2xl font-bold text-blue-600">$1.00</span>
+          </div>
+          <p className="text-sm text-gray-500">One-time payment for custom context file</p>
+        </div>
+      </div>
+
+      <Button
+        onClick={handleMockPayment}
+        disabled={isProcessing}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium"
+      >
+        {isProcessing ? (
+          <div className="flex items-center justify-center">
+            <LoadingSpinner size="sm" color="text-white" />
+            <span className="ml-2">Processing Payment...</span>
+          </div>
+        ) : (
+          'Pay $1 & Generate Context File'
+        )}
+      </Button>
+
+      <p className="text-xs text-gray-500 mt-4">
+        This is a demo payment. No actual charges will be made.
+      </p>
     </div>
   );
 };

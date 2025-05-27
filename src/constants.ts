@@ -138,3 +138,102 @@ export const STRIPE_PUBLISHABLE_KEY = 'pk_test_51MefTTQhLKGI7MgxYKtjI4pgJ9niyTxZ
 
 // Payment amount (in cents)
 export const PAYMENT_AMOUNT = 100; // $1
+
+// AI Models
+export const AI_MODELS = [
+  'GPT-4',
+  'GPT-3.5',
+  'Claude 3.5 Sonnet',
+  'Claude 3 Haiku',
+  'Gemini Pro',
+  'Gemini Flash',
+  'Other'
+];
+
+// Programming Languages
+export const LANGUAGES = [
+  'JavaScript',
+  'TypeScript',
+  'Python',
+  'Java',
+  'C#',
+  'PHP',
+  'Ruby',
+  'Go',
+  'Rust',
+  'Swift',
+  'Kotlin',
+  'Other'
+];
+
+// Platforms
+export const PLATFORMS = [
+  'Web Application',
+  'Mobile App (React Native)',
+  'Mobile App (Flutter)',
+  'Desktop App (Electron)',
+  'Desktop App (Tauri)',
+  'API/Backend',
+  'Chrome Extension',
+  'Other'
+];
+
+// Operating Systems
+export const OPERATING_SYSTEMS = [
+  'Windows',
+  'macOS',
+  'Linux',
+  'iOS',
+  'Android',
+  'Cross-platform'
+];
+
+// Development Tools
+export const DEV_TOOLS = [
+  'VS Code',
+  'Cursor',
+  'Windsurf',
+  'WebStorm',
+  'IntelliJ IDEA',
+  'Sublime Text',
+  'Vim/Neovim',
+  'Other'
+];
+
+// Language Support Options
+export const LANGUAGE_SUPPORT = [
+  'English Only',
+  'Multi-language (i18n)',
+  'RTL Support (Arabic, Hebrew)',
+  'Specific Language (specify)'
+];
+
+
+// Design Frameworks
+export const DESIGN_FRAMEWORKS = [
+  'Tailwind CSS',
+  'Bootstrap',
+  'Material-UI',
+  'Ant Design',
+  'Chakra UI',
+  'Styled Components',
+  'CSS Modules',
+  'Vanilla CSS',
+  'Other'
+];
+
+// Fonts
+export const FONTS = [
+  'Inter',
+  'Roboto',
+  'Open Sans',
+  'Lato',
+  'Montserrat',
+  'Poppins',
+  'Source Sans Pro',
+  'Nunito',
+  'Raleway',
+  'Ubuntu',
+  'Other'
+];
+
