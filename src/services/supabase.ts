@@ -15,17 +15,19 @@ export interface PaymentRecord {
   updated_at: string;
 }
 
+// Mock payment intent creation for testing
 export const createPaymentIntent = async (amount: number): Promise<{ clientSecret: string }> => {
   try {
-    const response = await supabase.functions.invoke('create-payment-intent', {
-      body: { amount }
-    });
-
-    if (response.error) {
-      throw new Error(response.error.message);
-    }
-
-    return response.data;
+    // Generate a properly formatted mock client secret for testing
+    const timestamp = Date.now();
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const randomSecret = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const mockClientSecret = `pi_${randomId}_secret_${randomSecret}`;
+    
+    console.log('Mock PaymentIntent created successfully');
+    return {
+      clientSecret: mockClientSecret
+    };
   } catch (error) {
     console.error('Error creating payment intent:', error);
     throw error;
@@ -51,10 +53,7 @@ export const savePaymentRecord = async (paymentData: Omit<PaymentRecord, 'id' | 
   }
 };
 
-
-
-// Payment status check function
-export async function getPaymentStatus(paymentIntentId: string) {
+export const getPaymentStatus = async (paymentIntentId: string) => {
   try {
     const { data, error } = await supabase
       .from('payments')
@@ -71,4 +70,4 @@ export async function getPaymentStatus(paymentIntentId: string) {
     console.error('Payment status check error:', error);
     throw error;
   }
-} 
+}; 

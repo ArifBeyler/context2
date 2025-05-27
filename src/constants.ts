@@ -2,17 +2,27 @@ import { ColorPalette, AppFont, AppSelections } from './types';
 
 export const APP_FONTS: AppFont[] = ['Poppins', 'Inter', 'SF Pro', 'Roboto', 'Montserrat', 'Lato']; // Poppins added and made first
 
-export const EXAMPLE_PROMPTS: string[] = [
-  "A smart to-do list app with AI task prioritization and deadline suggestions",
-  "An AI-powered personal finance tracker that categorizes expenses automatically",
-  "A habit tracking app with AI coaching and personalized motivation messages",
-  "An AI recipe generator that suggests meals based on dietary preferences and available ingredients",
-  "A productivity app with AI-powered focus sessions and distraction blocking",
-  "An AI language learning companion with personalized conversation practice",
-  "A smart workout planner that adapts routines based on progress and goals",
-  "An AI-powered mood tracker with personalized wellness recommendations",
-  "A collaborative project management tool with AI task assignment and timeline optimization",
-  "An AI travel planner that creates custom itineraries based on preferences and budget"
+export const EXAMPLE_PROMPTS = [
+  {
+    title: "To-Do List App",
+    prompt: "Create a simple to-do list application where users can add, edit, delete, and mark tasks as complete. Include categories and due dates."
+  },
+  {
+    title: "Weather App",
+    prompt: "Build a weather application that shows current weather and 7-day forecast for user's location with beautiful weather icons."
+  },
+  {
+    title: "Recipe Manager",
+    prompt: "Develop a recipe management app where users can save, search, and organize their favorite recipes with ingredients and cooking instructions."
+  },
+  {
+    title: "Expense Tracker",
+    prompt: "Create an expense tracking application to help users monitor their spending, categorize expenses, and view monthly reports."
+  },
+  {
+    title: "AI Chat Assistant",
+    prompt: "Build an AI-powered chat application that can answer questions, help with tasks, and maintain conversation history."
+  }
 ];
 
 // Core Features that users can select from
